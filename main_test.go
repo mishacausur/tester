@@ -18,7 +18,10 @@ func TestMainHandlerWhenEverytingOk(t *testing.T) {
 	status := responseRecorder.Code
 
 	require.Equal(t, status, http.StatusOK)
-	assert.NotEmpty(t, responseRecorder.Body.String())
+
+	body := responseRecorder.Body.String()
+	assert.NotEmpty(t, body)
+	assert.Equal(t, body, "Мир кофе,Сладкоежка")
 }
 
 func TestWhenWrongCity(t *testing.T) {
@@ -48,4 +51,5 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 
 	res := strings.Split(body.String(), ",")
 	assert.Equal(t, len(res), totalCount)
+	assert.Equal(t, res, []string{"Мир кофе", "Сладкоежка", "Кофе и завтраки", "Сытый студент"})
 }
